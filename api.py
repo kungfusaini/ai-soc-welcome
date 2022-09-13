@@ -23,6 +23,4 @@ if __name__ == '__main__':
     print('\nENDPOINTS:')
     print(app.url_map)
 
-    # create database connection
-    print("\n\nConnecting to Mongo database...")
     app.run(debug=True, port=5000, host='0.0.0.0')
