@@ -1,6 +1,7 @@
 from flask import Flask, request
 import time
 from mail import create_email, send_email
+from file_handler import write_data
 
 app = Flask(__name__)
 
@@ -12,6 +13,20 @@ def sendEmail():
     send_email(message)
     response = app.response_class(
         response="Email sent to {}".format(recipient_email),
+        status=200
+        )
+    return response
+
+
+@app.route('/storeInfo', methods=['POST'])
+def storeInfo():
+    first = request.form['first']
+    last = request.form['last']
+    email = request.form['email']
+    data = [first, last, email]
+    write_data(data)
+    response = app.response_class(
+        response="Data stored for {} {}".format(first, last),
         status=200
         )
     return response
