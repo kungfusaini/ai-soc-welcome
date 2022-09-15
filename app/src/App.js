@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import banner from './static/banner.png';
 import './App.css';
+import React from 'react';
+import Image from 'react-image-resizer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <DisplayBanner />
+      </div>
+      
+
   );
 }
 
+function DisplayBanner(){
+  return <img src={banner} alt="banner" class="center"/>
+}
+
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
