@@ -42,7 +42,7 @@ class NameForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.email);
+    SaveUser(this.state.email, this.state.first, this.state.last);
     event.preventDefault();
   }
 
@@ -60,6 +60,27 @@ class NameForm extends React.Component {
     );
   }
 }
+
+async function SaveUser(email, first, last){
+  const response = await fetch('http://127.0.0.1:5000/storeInfo', {
+    method: 'POST',
+    mode: 'cors',
+    body: JSON.stringify({
+      email: email,
+      first: first,
+      last: last
+    }), // string or object
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
+// async function SaveUser(email, first, last){
+//   const response = await fetch('http://127.0.0.1:5000/healthcheck', {
+//     method: 'POST',
+//   });
+// }
 
 export default App;
 

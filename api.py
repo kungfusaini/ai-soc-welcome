@@ -2,8 +2,10 @@ from flask import Flask, request
 import time
 from mail import create_email, send_email
 from file_handler import write_data
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/sendEmail', methods=['POST'])
@@ -20,14 +22,12 @@ def sendEmail():
 
 @app.route('/storeInfo', methods=['POST'])
 def storeInfo():
-    first = request.form['first']
-    last = request.form['last']
-    email = request.form['email']
-    data = [first, last, email]
-    write_data(data)
+    print("Received request to store data")
+    d = request.json
+    write_data([d['email'], d['first'], d['last']])
     response = app.response_class(
-        response="Data stored for {} {}".format(first, last),
-        status=200
+        response="Data stored for {} {}".format(d['first'], d['last']),
+        status=200,
         )
     return response
 
@@ -37,5 +37,4 @@ if __name__ == '__main__':
     print('Started at: {}\n\n'.format(time.time()))
     print('\nENDPOINTS:')
     print(app.url_map)
-
     app.run(debug=True, port=5000, host='0.0.0.0')
