@@ -4,20 +4,7 @@ import yaml
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
-
-def create_email(recipient_email, prompt, art_link):
-    message = MIMEMultipart("alternative")
-    sender_email = "kclaisociety@gmail.com"
-    html = open("template.html")
-    body = MIMEText(html.read(), 'html')
-    message.attach(body)
-
-    message["Subject"] = "Your AI Art!"
-    message["From"] = sender_email
-    message["To"] = recipient_email
-
-    return message
+from message import createMessage
 
 
 def send_email(message):
@@ -30,6 +17,22 @@ def send_email(message):
         server.sendmail(
             message['From'], message['To'], message.as_string()
         )
+
+
+def create_email(recipient_email, prompt, art_link):
+    message = MIMEMultipart("alternative")
+    sender_email = "kclaisociety@gmail.com"
+    # art_link = "https://c.files.bbci.co.uk/9942/production/_119143293_flying-car.jpg"
+    createMessage(art_link, prompt)
+    html = open("template.html")
+    body = MIMEText(html.read(), 'html')
+    message.attach(body)
+
+    message["Subject"] = "Your AI Art!"
+    message["From"] = sender_email
+    message["To"] = recipient_email
+
+    return message
 
 
 if __name__ == '__main__':

@@ -1,4 +1,8 @@
-<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="m_-6639453232429949780bodyTable" style="border-collapse:collapse;height:100%;margin:0;padding:0;width:100%">
+from email import message
+
+
+def createMessage(image, prompt):
+    message = """<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="m_-6639453232429949780bodyTable" style="border-collapse:collapse;height:100%;margin:0;padding:0;width:100%">
                 <tbody><tr>
                     <td align="center" valign="top" id="m_-6639453232429949780bodyCell" style="height:100%;margin:0;padding:0;width:100%">
                         
@@ -95,11 +99,11 @@
                             
 Thanks for coming to our fresher's fair event today. We hope you have enjoyed learning about the society and we hope to see you throughout the year.&nbsp;
 <br></br>
-<img src=https://c.files.bbci.co.uk/9942/production/_119143293_flying-car.jpg alt="ai_art" width="512" height="512" class="ai_img" data-entity-type="file" data-entity-uuid="b3b0b0a0-3b1a-4b1f-9b1a-3b1a4b1f9b1a" style="display: block;
+<img src={} alt="ai_art" width="512" height="512" class="ai_img" data-entity-type="file" data-entity-uuid="b3b0b0a0-3b1a-4b1f-9b1a-3b1a4b1f9b1a" style="display: block;
 margin-left: auto;
 margin-right: auto;
 width: 100%;">
-<h3 style="display:block;margin:0;padding:0;color:#444444;font-family:Helvetica;font-size:22px;font-style:normal;font-weight:bold;line-height:150%;letter-spacing:normal;text-align:center">jodh is on drillings</h3>
+<h3 style="display:block;margin:0;padding:0;color:#444444;font-family:Helvetica;font-size:22px;font-style:normal;font-weight:bold;line-height:150%;letter-spacing:normal;text-align:center">{}</h3>
 <p dir="ltr" style="margin:10px 0;padding:0;color:#808080;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">Welcome aboard,<br>
 The KCL AI Society</p>
 
@@ -317,4 +321,7 @@ You can <a style="color:#ffffff;font-weight:normal;text-decoration:underline">up
                         
                     </td>
                 </tr>
-            </tbody></table>
+            </tbody></table>""".format(image, prompt)
+   
+    with open("template.html", "w") as f:
+        f.write(message)
