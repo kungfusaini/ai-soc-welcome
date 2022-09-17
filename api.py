@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request
 import time
 from mail import create_email, send_email
@@ -39,7 +40,7 @@ def storeInfo():
 def getArt():
     global art_links
     response = app.response_class(
-        response=art_links,
+        response=json.dumps(art_links),
         status=200,
         )
     return response
@@ -66,4 +67,3 @@ if __name__ == '__main__':
     print('\nENDPOINTS:')
     print(app.url_map)
     app.run(debug=True, port=5000, host='0.0.0.0')
-
