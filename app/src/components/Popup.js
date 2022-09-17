@@ -40,6 +40,7 @@ class NameForm extends React.Component {
     handleSubmit(event) {
       SaveUser(this.state.email, this.state.first, this.state.last);
       Generate(this.state.prompt);
+      SendEmail(this.state.email, this.state.prompt);
       event.preventDefault();
     }
   
@@ -68,6 +69,20 @@ class NameForm extends React.Component {
         email: email,
         first: first,
         last: last
+      }), // string or object
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  async function SendEmail(email, prompt){
+    const response = await fetch('http://127.0.0.1:5000/sendEmail', {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify({
+        email: email,
+        prompt: prompt,
       }), // string or object
       headers: {
         'Content-Type': 'application/json'

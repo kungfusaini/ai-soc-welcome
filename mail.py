@@ -6,14 +6,14 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-def create_email(recipient_email):
+def create_email(recipient_email, prompt, art_link):
     message = MIMEMultipart("alternative")
     sender_email = "kclaisociety@gmail.com"
     html = open("template.html")
     body = MIMEText(html.read(), 'html')
     message.attach(body)
 
-    message["Subject"] = "Your AI"
+    message["Subject"] = "Your AI Art!"
     message["From"] = sender_email
     message["To"] = recipient_email
 

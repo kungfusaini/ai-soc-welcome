@@ -14,8 +14,10 @@ art_links = {}
 
 @app.route('/sendEmail', methods=['POST'])
 def sendEmail():
-    recipient_email = request.form['recipient_email']
-    message = create_email(recipient_email)
+    global art_links
+    recipient_email = request.json['email']
+    prompt = request.json['prompt']
+    message = create_email(recipient_email, prompt, art_links[prompt])
     send_email(message)
     response = app.response_class(
         response="Email sent to {}".format(recipient_email),
