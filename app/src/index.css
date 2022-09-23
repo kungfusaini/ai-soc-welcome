@@ -24,7 +24,8 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font: 30px Courier New, bold;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 20px;
 }
 
 input[type=text] {
@@ -32,7 +33,7 @@ input[type=text] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  font: 16px Courier New, bold;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 input[type=submit], input[type=submit], input[type=reset] {

@@ -1,12 +1,15 @@
 import React from "react";
 import './Popup.css';
+import { AiFillCloseCircle } from 'react-icons/ai';
+
+
 
 function Popup(props) {
   return (props.trigger) ? (
     <div className='popup'>
         <div className='popup-inner'>
-            <button className='close-btn' onClick={()=> props.setTrigger(false)}>close me</button>
-            <NameForm/>
+            <button className='close-btn' onClick={()=> props.setTrigger(false)}><AiFillCloseCircle/></button>
+            <NameForm closeWindow={props.setTrigger}/>
             {props.children}
         </div>
     </div>
@@ -38,9 +41,11 @@ class NameForm extends React.Component {
     }
   
     handleSubmit(event) {
+      this.props.closeWindow(false);
+      let time = Date.now();
       SaveUser(this.state.email, this.state.first, this.state.last);
-      Generate(this.state.prompt);
-      SendEmail(this.state.email, this.state.prompt);
+      Generate(this.state.prompt, time, this.state.email);
+      // SendEmail(this.state.email, time);
       event.preventDefault();
     }
   
@@ -53,9 +58,9 @@ class NameForm extends React.Component {
           <input type="text" name="last" value={this.state.last} onChange={this.handleChange}/>
           <label for="email">Email</label>
           <input type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
-          <label for="propmt">What shall we make?</label>
+          <label for="propmt">What Shall We Make?</label>
           <input type="text" name="prompt" value={this.state.prompt} onChange={this.handleChange}/>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" class="button-28"/>
         </form>
       );
     }
@@ -76,13 +81,13 @@ class NameForm extends React.Component {
     });
   }
 
-  async function SendEmail(email, prompt){
+  async function SendEmail(email, time){
     const response = await fetch('http://127.0.0.1:5000/sendEmail', {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
         email: email,
-        prompt: prompt,
+        prompt: time,
       }), // string or object
       headers: {
         'Content-Type': 'application/json'
@@ -91,12 +96,14 @@ class NameForm extends React.Component {
   }
 
 
-  async function Generate(prompt){
+  async function Generate(prompt, time, email){
     const response = await fetch('http://127.0.0.1:5000/generateArt', {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
         prompt: prompt,
+        timestamp: time,
+        email: email
       }), // string or object
       headers: {
         'Content-Type': 'application/json'
